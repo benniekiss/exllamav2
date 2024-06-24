@@ -537,6 +537,12 @@ class ExLlamaV2DynamicGenerator:
         filters: list[list[ExLlamaV2Filter]] | list[ExLlamaV2Filter] | None = None,
         filter_prefer_eos: bool = False,
         return_last_results: bool = False,
+        max_skips: int | None = 4,
+        return_top_tokens: int = 0,
+        return_logits: bool = False,
+        return_probs: bool = False,
+        identifier: object | None = None,
+        banned_strings: list[str] | None = None,
         **kwargs
     ):
         """
@@ -595,6 +601,25 @@ class ExLlamaV2DynamicGenerator:
         :param return_last_results:
             If True, returns the last results dict for each job
 
+        :param max_skips:
+            In the event that the job is too large to fit in the cache at any given moment but there are
+            smaller jobs pending that would fit, those smaller jobs are started instead. This number
+            specifies the maximum number of times a job can be skipped in favor of a smaller job before it
+            stalls the queue. After this, the job is guaranteed to be the next job started.
+
+        :param return_top_tokens:
+            Number of top tokens to return, along with their final sampling probabilities. There is some
+            performance penalty for enabling this.
+
+        :param return_logits:
+            Return pre-sampling logits along with output tokens.
+
+        :param return_probs:
+            Return final sampling probability for each chosen token.
+
+        :param identifier:
+            Object to return with every stream event relating to this job
+            
         :return:
             Completion(s): (str or list[str] depending on the type of the input prompt argument)
             Optionally, last results: (dict or list[dict] depending on the type of the input prompt argument)
@@ -646,6 +671,12 @@ class ExLlamaV2DynamicGenerator:
                 filter_prefer_eos = filter_prefer_eos,
                 token_healing = token_healing,
                 decode_special_tokens = decode_special_tokens,
+                max_skips=max_skips,
+                return_top_tokens=return_top_tokens,
+                return_logits=return_top_tokens,
+                return_probs=return_top_tokens,
+                identifier=return_top_tokens,
+                banned_strings=return_top_tokens,
             )
 
             if seed is not None: seed += 1
