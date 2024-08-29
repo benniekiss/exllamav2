@@ -518,7 +518,7 @@ class ExLlamaV2DynamicGenerator:
             self.current_loras = loras
         else:
             self.current_loras = [loras]
-        
+
 
     def generate(
         self,
@@ -619,7 +619,7 @@ class ExLlamaV2DynamicGenerator:
 
         :param identifier:
             Object to return with every stream event relating to this job
-            
+
         :return:
             Completion(s): (str or list[str] depending on the type of the input prompt argument)
             Optionally, last results: (dict or list[dict] depending on the type of the input prompt argument)
@@ -661,22 +661,22 @@ class ExLlamaV2DynamicGenerator:
                 assert False, "Unexpected type in gen_settings"
 
             job = ExLlamaV2DynamicJob(
-                input_ids = input_ids,
-                max_new_tokens = max_new_tokens,
-                min_new_tokens = min_new_tokens,
-                seed = seed,
-                stop_conditions = stop_conditions,
-                gen_settings = p_settings,
-                filters = filters[idx] or [],
-                filter_prefer_eos = filter_prefer_eos,
-                token_healing = token_healing,
-                decode_special_tokens = decode_special_tokens,
+                input_ids=input_ids,
+                max_new_tokens=max_new_tokens,
+                min_new_tokens=min_new_tokens,
+                seed=seed,
+                stop_conditions=stop_conditions,
+                gen_settings=p_settings,
+                filters=filters[idx] or [],
+                filter_prefer_eos=filter_prefer_eos,
+                token_healing=token_healing,
+                decode_special_tokens=decode_special_tokens,
                 max_skips=max_skips,
                 return_top_tokens=return_top_tokens,
-                return_logits=return_top_tokens,
-                return_probs=return_top_tokens,
-                identifier=return_top_tokens,
-                banned_strings=return_top_tokens,
+                return_logits=return_logits,
+                return_probs=return_probs,
+                identifier=identifier,
+                banned_strings=banned_strings,
             )
 
             if seed is not None: seed += 1
