@@ -94,7 +94,7 @@ print("Version:", version)
 # version = "0.0.5"
 
 setup(
-    name = "exllamav2",
+    name = "exllamav2_testing",
     version = version,
     packages = [
         "exllamav2",
